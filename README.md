@@ -1,6 +1,6 @@
 # pyyblog
 
-> A Vue.js project
+> 个人博客系统-前台页面
 
 ## Build Setup
 
