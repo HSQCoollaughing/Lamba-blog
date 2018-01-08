@@ -540,10 +540,10 @@ h5,h6{font-size:1em;}
 
       <div id="toolbar" class="m-padded m-fixed m-right-bottom" style="display: none">
         <div class="ui vertical icon buttons ">
-          <button type="button" class="ui toc teal button" >目录</button>
+          <button type="button" class="ui toc teal button">目录</button>
           <a href="#comment-container" class="ui teal button" >留言</a>
           <button class="ui wechat icon button"><i class="weixin icon"></i></button>
-          <div id="toTop-button" class="ui icon button" ><i class="chevron up icon"></i></div>
+          <div id="toTop-button" @click="scoll2Top()" class="ui icon button" ><i class="chevron up icon"></i></div>
         </div>
       </div>
 
@@ -554,18 +554,69 @@ h5,h6{font-size:1em;}
       </div>
 
       <div id="qrcode" class="ui wechat-qr flowing popup transition hidden "style="width: 130px !important;">
-        <!--<img src="./static/images/wechat.jpg" alt="" class="ui rounded image" style="width: 120px !important;">-->
+        <img src="../../assets/images/wechat.jpg" alt="" class="ui rounded image" style="width: 120px !important;">
       </div>
 
     </div>
 </template>
 
 <script>
+    /* 代码高亮 */
+    import '../../assets/lib/prism/prism.js'
+    import '../../assets/lib/prism/prism.css'
+    import 'tocbot/dist/tocbot.js'
+    import 'waypoints/lib/jquery.waypoints.js'
+
     export default {
-        name: "blog"
+        name: "blog",
+        mounted(){
+          // 目录tocbot初始化
+          tocbot.init({
+            // Where to render the table of contents.
+            tocSelector: '.js-toc',
+            // Where to grab the headings to build the table of contents.
+            contentSelector: '.js-toc-content',
+            // Which headings to grab inside of the contentSelector element.
+            headingSelector: 'h1, h2, h3',
+          });
+
+          // 目录
+          $('.toc.button').popup({
+            popup: $('.toc-container.popup'),
+            on: 'click',
+            position: 'left center'
+          })
+
+          // 微信
+          $('.wechat').popup({
+            popup: $('#qrcode'),
+            on: 'click',
+            position: 'left center'
+          })
+
+          // 滚动监测
+          var waypoint = new Waypoint({
+            element: document.getElementById('waypoint'),
+            handler: function(direction) {
+              if (direction == 'down') {
+                $('#toolbar').fadeIn(200);
+              } else {
+                $('#toolbar').fadeOut(500);
+              }
+              console.log('Scrolled to waypoint!  ' + direction);
+            }
+          })
+        },
+        methods: {
+          scoll2Top(){
+            $(window).scrollTo(0,500);
+          }
+        }
     }
 </script>
 
 <style scoped>
-
+  /* 排版插件 */
+  @import 'typocss/typo.css';
+  @import 'tocbot/dist/tocbot.css';
 </style>

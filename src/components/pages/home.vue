@@ -517,7 +517,7 @@
 
 <script>
     export default {
-        name: "home.vue"
+        name: "blogsList.vue"
     }
 </script>
 
