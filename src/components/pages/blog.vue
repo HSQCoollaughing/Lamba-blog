@@ -566,7 +566,9 @@ h5,h6{font-size:1em;}
     import '../../assets/lib/prism/prism.css'
     import 'tocbot/dist/tocbot.js'
     import 'waypoints/lib/jquery.waypoints.js'
-
+     /* 排版插件 */
+    import 'typocss/typo.css';
+    import 'tocbot/dist/tocbot.css';
     export default {
         name: "blog",
         mounted(){
@@ -579,21 +581,18 @@ h5,h6{font-size:1em;}
             // Which headings to grab inside of the contentSelector element.
             headingSelector: 'h1, h2, h3',
           });
-
           // 目录
           $('.toc.button').popup({
             popup: $('.toc-container.popup'),
             on: 'click',
             position: 'left center'
           })
-
           // 微信
           $('.wechat').popup({
             popup: $('#qrcode'),
             on: 'click',
             position: 'left center'
           })
-
           // 滚动监测
           var waypoint = new Waypoint({
             element: document.getElementById('waypoint'),
@@ -616,7 +615,5 @@ h5,h6{font-size:1em;}
 </script>
 
 <style scoped>
-  /* 排版插件 */
-  @import 'typocss/typo.css';
-  @import 'tocbot/dist/tocbot.css';
+ 
 </style>
